@@ -10,24 +10,12 @@ import React from 'react';
 // }
 
 export default class FoodType extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
-  removeFoodTypeHandler = (key) => {
-    var array = [...this.state.foodTypes]; // make a separate copy of the array
-    var index = key.index;
-    array.splice(index, 1);
-    this.setState({foodTypes: array});
-    // this.setState(prevState => ({
-    //   foodTypes: [...prevState.foodTypes].splice(key.index, 1)
-    // }))
-    console.log(key.index);
-  }
   render() {
+    const removeFoodTypeHandler  =  this.props.action;
     return (
       <div>
         {this.props.value.map((item, index) => (
-          <div class="ingredients" key={index}>{item}<i class="fas fa-times-circle" onClick={() => this.removeFoodTypeHandler({index})}></i></div>
+          <div class="ingredients" key={index}>{item}<i class="fas fa-times-circle" onClick={() => removeFoodTypeHandler(index)}></i></div>
         ))}
       </div>
     )

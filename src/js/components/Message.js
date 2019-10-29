@@ -23,6 +23,14 @@ class Message extends React.Component {
     }
   }
 
+  removeFoodTypeHandler = (index) => {
+    console.log(index);
+    this.setState(prevState => ({
+       foodTypes: [...prevState.foodTypes].filter(item => item != index )
+    }))
+    console.log(this.state, "I'm working");
+  }
+
   updateIngredientsHandler = () => {
     if (document.getElementById('ingredients').value.length > 1) {
       this.setState(prevState => ({
@@ -41,7 +49,7 @@ class Message extends React.Component {
         <h2>Feeling hungry, but only have a vague idea about what you're craving?</h2>
         <h1 id="cursive">You've come to the right place!</h1>
         <div>
-        {this.state.foodTypesPresent === 0 ? null : <FoodType value={this.state.foodTypes}/>}
+        {this.state.foodTypesPresent === 0 ? null : <FoodType value={this.state.foodTypes} action={this.removeFoodTypeHandler}/>}
           <label>Type of food (like pasta)</label>
           <div>
             <input
