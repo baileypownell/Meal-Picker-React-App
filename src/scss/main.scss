@@ -28,6 +28,7 @@
     margin: 0 auto;
     padding: 30px 0;
     input {
+      width: 90%;
       border-radius: 10px;
       border: 2px solid orange;
       padding: 5px;
@@ -75,6 +76,7 @@ button {
   padding: 5px 10px;
   border: none;
   margin: 10px auto;
+  width: 30%;
   i {
     padding-left: 15px;
     cursor: pointer;
@@ -83,4 +85,19 @@ button {
       color: rgb(212, 36, 17);
     }
   }
+}
+
+.fa-plus-circle {
+  font-size: 25px;
+  padding-left: 5px;
+  cursor: pointer;
+  transform: translateY(5px);
+  transition: color .4s;
+  &:hover {
+    color: rgb(212, 36, 17);
+  }
+}
+
+.disabled {
+  opacity: 0.5
 }
