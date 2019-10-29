@@ -1,0 +1,86 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+#app {
+  // background: linear-gradient(145deg, rgba(212, 36, 17, 0.8), rgba(212, 82, 17, 0.8));
+  background-image: url('https://res.cloudinary.com/djad06sng/image/upload/v1572359101/food.jpg'), linear-gradient(145deg, rgba(212, 36, 17, 0.5), rgba(212, 82, 17, 0.8));
+  background-blend-mode: overlay;
+  background-size: cover;
+
+  min-height: 100vh;
+  width: 100vw;
+  color: white;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+#message {
+  margin: 0 auto;
+  width: 80%;
+  text-align: center;
+  padding: 10vh 0;
+  > div {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    margin: 0 auto;
+    padding: 30px 0;
+    input {
+      border-radius: 10px;
+      border: 2px solid orange;
+      padding: 5px;
+      margin: 5px;
+    }
+    label {
+      font-size: 22px;
+    }
+  }
+}
+
+#cursive {
+  font-family: 'Caveat', cursive;
+  font-size: 300%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding: 10px 0;
+}
+
+button {
+  font-family: 'Caveat', cursive;
+  background-color: white;
+  color: orange;
+  font-size: 35px;
+  padding: 10px 30px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 8px 5px 30px black;
+  transition: all .4s;
+  transition-timing-function: cubic-bezier(.7, 1.01, 1, 1.5);
+  &:hover {
+    transform:scale(1.1);
+    box-shadow: 10px 10px 35px black;
+  }
+}
+
+.ingredients {
+  font-family: 'Caveat', cursive;
+  background-color: white;
+  color: orange;
+  font-size: 25px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  border: none;
+  margin: 10px auto;
+  i {
+    padding-left: 15px;
+    cursor: pointer;
+    transition: color .4s;
+    &:hover {
+      color: rgb(212, 36, 17);
+    }
+  }
+}
