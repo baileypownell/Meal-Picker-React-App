@@ -1,6 +1,8 @@
 import React from 'react';
 import FoodType from './FoodType';
 import Ingredients from './Ingredients';
+import Recipes from './Recipes';
+import regeneratorRuntime from "regenerator-runtime";
 
 class Message extends React.Component {
 
@@ -9,17 +11,21 @@ class Message extends React.Component {
     foodTypesPresent: 0,
     ingredientsPresent: 0,
     foodTypes: [],
-    ingredients: []
+    ingredients: [],
+    recipesRequested: false,
+    response: '',
+    recipeArray: []
   }
 
   updateFoodTypesHandler = () => {
+    let input = document.getElementById('foodTypes').value;
     if (document.getElementById('foodTypes').value.length > 1 && this.state.foodTypes.length < 1) {
       this.setState(prevState => ({
-        foodTypes: [...prevState.foodTypes, document.getElementById('foodTypes').value],
+        foodTypes: [...prevState.foodTypes, input],
         foodTypesPresent: 1,
         buttonDisabled: false
       }))
-      // document.getElementById('foodTypes').value = ''
+      document.getElementById('foodTypes').value = ''
     }
   }
 
@@ -32,14 +38,15 @@ class Message extends React.Component {
   }
 
   updateIngredientsHandler = () => {
+    let input = document.getElementById('ingredients').value;
     if (document.getElementById('ingredients').value.length > 1) {
       this.setState(prevState => ({
         ingredientsPresent: 1,
-        ingredients: [...prevState.ingredients, document.getElementById('ingredients').value],
+        ingredients: [...prevState.ingredients, input],
         buttonDisabled: false
       }))
       console.log(this.state);
-      // document.getElementById('ingredients').value = ''
+      document.getElementById('ingredients').value = ''
     }
   }
 
@@ -62,13 +69,68 @@ class Message extends React.Component {
     }
   }
 
+  reverseRequestState = () => {
+    this.setState({
+      recipesRequested: true
+    });
+  }
+
+  buildFetchHandler = () => {
+    let foodType = this.state.foodType;
+    let ingredients = '';
+    for (let i = 0; i < this.state.ingredients.length; i++) {
+      console.log('in for loop')
+      if (i === (this.state.ingredients.length-1)) {
+        console.log('we are on last element of this.state.ingredients');
+        ingredients.concat(this.state.ingredients[i]);
+      } else {
+        ingredients.concat(this.state.ingredients[i]);
+        ingredients.concat('%2C');
+      }
+    }
+    console.log(this.state.ingredients.length);
+  }
+
+  async findMealsHandler() {
+    // build url https://recipe-puppy.p.rapidapi.com/?p=1&i=onions%2Cgarlic&q=omelet
+    let foodType = this.state.foodType;
+    let ingredients = '';
+    for (let i = 0; i < this.state.ingredients.length; i++) {
+      if (i === (this.state.ingredients.length-1)) {
+        console.log('we are on last element of this.state.ingredients');
+        ingredients += this.state.ingredients[i];
+      } else {
+        ingredients += this.state.ingredients[i];
+        ingredients += '%2C';
+      }
+    }
+
+    let url = 'https://recipe-puppy.p.rapidapi.com/?p=1&i=' + ingredients + '&q=' + this.state.foodTypes;
+
+    const response = await fetch(url, {
+    	"method": "GET",
+    	"headers": {
+    		"x-rapidapi-host": "recipe-puppy.p.rapidapi.com",
+    		"x-rapidapi-key": "0364c1c0b2msh0a35a50c81fb52fp11c5f5jsn3711d1bbb1ce"
+      }
+    });
+
+    const json = await response.json();
+    console.log(json);
+    this.setState({
+      response: json,
+      recipeArray: json.results
+    });
+    console.log(this.state.recipeArray);
+  }
+
   render() {
     return (
       <div id="message">
         <h2>Feeling hungry, but only have a vague idea about what you're craving?</h2>
         <h1 id="cursive">You've come to the right place!</h1>
         <div className="parameters">
-          <label>Type of food (like pasta)</label>
+          <label>Optional: Pick 1 type of food (like pasta)</label>
           <div>
             <input
               id="foodTypes"
@@ -97,7 +159,12 @@ class Message extends React.Component {
           </div>
           {this.state.ingredientsPresent === 0 ? null : <Ingredients value={this.state.ingredients} action={this.removeIngredientsHandler}/>}
         </div>
-        <button className={this.state.buttonDisabled ? "disabled" : null}>Find Meals <i class="fas fa-utensils"></i></button>
+        <button className={this.state.buttonDisabled ? "disabled" : null} onClick={(event) => { this.findMealsHandler(); this.reverseRequestState();}}>Find Meals <i class="fas fa-utensils"></i></button>
+        <Recipes
+          requestStatus={this.state.recipesRequested}
+          response={this.state.recipeArray}
+        />
+
       </div>
     )
   }
