@@ -5,14 +5,50 @@
 }
 
 @media screen and (min-width: 769px) {
+
+  #content {
+    width: 80%;
+    h2 {
+      font-size: 24px;
+    }
+    h1 {
+      font-size: 45px;
+    }
+    .parameters {
+      label {
+        font-size: 24px;
+      }
+    }
+  }
+
+  input {
+    padding: 10px;
+    font-size: 20px;
+  }
+
+  .fa-plus-circle {
+    font-size: 35px;
+    transform: translateY(13px);
+  }
+
+  button {
+    font-size: 30px;
+    border-radius: 30px;
+  }
+
   #recipes {
     display:flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding: 3vw 0;
+    h1 {
+      width: 100%;
+    }
   }
 
   .recipe {
     width: 45%;
+    padding: 30px;
   }
 }

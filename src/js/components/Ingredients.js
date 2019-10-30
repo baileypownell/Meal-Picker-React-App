@@ -1,5 +1,5 @@
 import React from 'react';
-import './inputContainer.scss';
+
 
 export default class Ingredients extends React.Component {
   render() {
