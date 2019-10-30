@@ -1,3 +1,5 @@
+
+
 * {
   margin: 0;
   box-sizing: border-box;
@@ -21,23 +23,34 @@
   width: 80%;
   text-align: center;
   padding: 10vh 0;
-  > div {
+  > .parameters {
     display: flex;
     flex-direction: column;
     width: 75%;
     margin: 0 auto;
     padding: 30px 0;
-    input {
-      width: 90%;
-      border-radius: 10px;
-      border: 2px solid orange;
-      padding: 5px;
-      margin: 5px;
+    > div {
+      display: flex;
+      flex-direction: row;
+      flex-wrap:nowrap;
+      justify-content: center;
     }
     label {
       font-size: 22px;
     }
   }
+}
+
+input {
+  width: 75%;
+  min-width: 120px;
+  border-radius: 10px;
+  border: 2px solid orange;
+  padding: 5px;
+  margin: 5px;
+  color: orange;
+  font-size: 16px;
+  font-family: 'Red Hat Display', sans-serif;
 }
 
 #cursive {
@@ -76,10 +89,10 @@ button {
   padding: 5px 10px;
   border: none;
   margin: 10px auto;
-  width: 30%;
   i {
-    padding-left: 15px;
+    padding-left: 10px;
     cursor: pointer;
+    transform: translateY(2px);
     transition: color .4s;
     &:hover {
       color: rgb(212, 36, 17);
@@ -91,13 +104,17 @@ button {
   font-size: 25px;
   padding-left: 5px;
   cursor: pointer;
-  transform: translateY(5px);
+  transform: translateY(11px);
   transition: color .4s;
   &:hover {
     color: rgb(212, 36, 17);
   }
 }
 
-.disabled {
+.disabled,
+#disabled {
   opacity: 0.5
 }
+
+
+@import './media-queries.scss';

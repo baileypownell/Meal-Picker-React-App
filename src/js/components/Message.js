@@ -13,7 +13,7 @@ class Message extends React.Component {
   }
 
   updateFoodTypesHandler = () => {
-    if (document.getElementById('foodTypes').value.length > 1) {
+    if (document.getElementById('foodTypes').value.length > 1 && this.state.foodTypes.length < 1) {
       this.setState(prevState => ({
         foodTypes: [...prevState.foodTypes, document.getElementById('foodTypes').value],
         foodTypesPresent: 1,
@@ -23,12 +23,12 @@ class Message extends React.Component {
     }
   }
 
-  removeFoodTypeHandler = (index) => {
-    console.log(index);
+  removeFoodTypeHandler = () => {
     this.setState(prevState => ({
-       foodTypes: [...prevState.foodTypes].filter(item => item != index )
+      foodTypes: [],
+      foodTypesPresent: 0,
+      buttonDisabled: true
     }))
-    console.log(this.state, "I'm working");
   }
 
   updateIngredientsHandler = () => {
@@ -43,13 +43,31 @@ class Message extends React.Component {
     }
   }
 
+  removeIngredientsHandler = (index, e) => {
+    const ingredients = Object.assign([], this.state.ingredients);
+    console.log(index);
+    ingredients.splice(index, 1);
+    this.setState({
+      ingredients: ingredients
+    });
+    if (ingredients.length === 0) {
+      this.setState({
+        ingredientsPresent: 0
+      })
+    }
+    if (this.state.foodTypesPresent === 0 && ingredients.length === 0) {
+      this.setState({
+        buttonDisabled: true
+      })
+    }
+  }
+
   render() {
     return (
       <div id="message">
         <h2>Feeling hungry, but only have a vague idea about what you're craving?</h2>
         <h1 id="cursive">You've come to the right place!</h1>
-        <div>
-        {this.state.foodTypesPresent === 0 ? null : <FoodType value={this.state.foodTypes} action={this.removeFoodTypeHandler}/>}
+        <div className="parameters">
           <label>Type of food (like pasta)</label>
           <div>
             <input
@@ -61,9 +79,9 @@ class Message extends React.Component {
                 }
               }}>
             </input>
-            <i class="fas fa-plus-circle" onClick={this.updateFoodTypesHandler}></i>
+            <i className={this.state.foodTypesPresent ? "fas fa-plus-circle " + "disabled" : "fas fa-plus-circle"} onClick={this.updateFoodTypesHandler}></i>
           </div>
-          {this.state.ingredientsPresent === 0 ? null : <Ingredients value={this.state.ingredients}/>}
+          {this.state.foodTypesPresent === 0 ? null : <FoodType value={this.state.foodTypes} action={this.removeFoodTypeHandler}/>}
           <label>Desired ingredients</label>
           <div>
             <input
@@ -77,6 +95,7 @@ class Message extends React.Component {
             ></input>
             <i class="fas fa-plus-circle" onClick={this.updateIngredientsHandler}></i>
           </div>
+          {this.state.ingredientsPresent === 0 ? null : <Ingredients value={this.state.ingredients} action={this.removeIngredientsHandler}/>}
         </div>
         <button className={this.state.buttonDisabled ? "disabled" : null}>Find Meals <i class="fas fa-utensils"></i></button>
       </div>
