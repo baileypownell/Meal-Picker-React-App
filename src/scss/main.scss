@@ -1,0 +1,153 @@
+
+@import './Recipe.scss';
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+  font-weight: normal;
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+body {
+  overflow-X: hidden;
+}
+
+#application {
+  // background: linear-gradient(145deg, rgba(212, 36, 17, 0.8), rgba(212, 82, 17, 0.8));
+  width: 100%;
+  background-image: url('../../assets/food.jpg'), linear-gradient(145deg, rgba(212, 36, 17, 0.5), rgba(212, 82, 17, 0.8));
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100vw;
+  color: white;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+#content {
+  margin: 0 auto;
+  width: 90%;
+  text-align: center;
+  padding: 5vh 0;
+  h2 {
+    font-size: 18px;
+  }
+  h1 {
+    font-size: 35px;
+  }
+  > .parameters {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 0;
+    > div {
+      display: flex;
+      flex-direction: row;
+      flex-wrap:nowrap;
+      justify-content: center;
+    }
+    label {
+      font-size: 18px;
+    }
+  }
+}
+
+input {
+  width: 75%;
+  min-width: 120px;
+  border-radius: 10px;
+  border: 2px solid orange;
+  padding: 5px;
+  margin: 5px;
+  color: orange;
+  font-size: 16px;
+  font-family: 'Red Hat Display', sans-serif;
+}
+
+#cursive {
+  font-family: 'Caveat', cursive;
+  font-size: 300%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  padding: 10px 0;
+}
+
+button {
+  font-family: 'Caveat', cursive;
+  background-color: white;
+  color: orange;
+  font-size: 22px;
+  padding: 10px 30px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 8px 5px 30px black;
+  transition: all .4s;
+  transition-timing-function: cubic-bezier(.7, 1.01, 1, 1.5);
+  &:hover {
+    transform:scale(1.1);
+    box-shadow: 10px 10px 35px black;
+  }
+}
+
+.ingredients {
+  font-family: 'Caveat', cursive;
+  background-color: white;
+  color: orange;
+  font-size: 25px;
+  border-radius: 10px;
+  padding: 5px 10px;
+  border: none;
+  margin: 10px auto;
+  i {
+    padding-left: 10px;
+    cursor: pointer;
+    transform: translateY(2px);
+    transition: color .4s;
+    &:hover {
+      color: rgb(212, 36, 17);
+    }
+  }
+}
+
+.fa-plus-circle {
+  font-size: 25px;
+  padding-left: 5px;
+  cursor: pointer;
+  transform: translateY(11px);
+  transition: color .4s;
+  &:hover {
+    color: rgb(212, 36, 17);
+  }
+}
+
+.disabled,
+#disabled {
+  opacity: 0.5
+}
+
+#inputContainer {
+  flex-direction: column!important;
+}
+
+
+#ErrorMessage {
+  color: orange;
+  background-color: rgb(255, 255, 255);
+  border-radius: 30px;
+  padding: 3vw;
+  margin: 30px;
+  box-shadow: 8px 8px 40px black;
+}
+
+
+@import './media-queries.scss';
